@@ -11,6 +11,7 @@ import ca.uhn.hl7v2.HapiContext;
 import ca.uhn.hl7v2.model.Message;
 import ca.uhn.hl7v2.model.v28.message.ADT_A01;
 import ca.uhn.hl7v2.model.v28.message.ADT_A02;
+import ca.uhn.hl7v2.model.v28.message.ADT_A03;
 import ca.uhn.hl7v2.parser.CanonicalModelClassFactory;
 import ca.uhn.hl7v2.parser.PipeParser;
 import ca.uhn.hl7v2.parser.XMLParser;
@@ -21,7 +22,7 @@ import ca.uhn.hl7v2.parser.XMLParser;
  */
 public class App {
     public static void main(String[] args) throws Exception {
-        String inputFile = "parser/src/resources/input.hl7";
+        String inputFile = "parser/src/resources/a03.hl7";
         String outputFile = "parser/src/resources/output.xml";
 
         parseHl7(inputFile, outputFile);
@@ -42,7 +43,7 @@ public class App {
         String hl7 = "";
         String line = br.readLine();
         while (line != null) {
-            hl7 += line;
+            hl7 += line + "\r\n";
             line = br.readLine();
         }
         fr.close();
@@ -68,6 +69,10 @@ public class App {
                 case "ADT_A02":
                     ADT_A02 a02message = (ADT_A02) message;
                     xmlPayload = xmlParser.encode(a02message);
+                    break;
+                case "ADT_A03":
+                    ADT_A03 a03message = (ADT_A03) message;
+                    xmlPayload = xmlParser.encode(a03message);
                     break;
                 default:
                     xmlPayload = "empty";
